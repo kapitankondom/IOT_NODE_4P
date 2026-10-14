@@ -108,6 +108,29 @@
 // *****************************************************************************
 // *****************************************************************************
 
+/*******************************************************************************
+  Function:
+    void STDIO_BufferModeSet ( void )
+
+  Summary:
+    Sets the buffering mode for stdin and stdout
+
+  Remarks:
+ ********************************************************************************/
+static void STDIO_BufferModeSet(void)
+{
+    /* MISRAC 2023 deviation block start */
+    /* MISRA C-2023 Rule 21.6 deviated 2 times in this file.  Deviation record ID -  H3_MISRAC_2023_R_21_6_DR_3 */
+
+    /* Make stdin unbuffered */
+    setbuf(stdin, NULL);
+
+    /* Make stdout unbuffered */
+    setbuf(stdout, NULL);
+    /* MISRAC 2023 deviation block end */
+}
+
+
 /* MISRAC 2023 deviation block end */
 
 /*******************************************************************************
@@ -128,7 +151,11 @@ void SYS_Initialize ( void* data )
 
     NVMCTRL_REGS->NVMCTRL_CTRLB = NVMCTRL_CTRLB_RWS(3U);
 
+    STDIO_BufferModeSet();
+
+
   
+    PORT_Initialize();
 
     CLOCK_Initialize();
 
@@ -137,7 +164,11 @@ void SYS_Initialize ( void* data )
 
     NVMCTRL_Initialize( );
 
+    SERCOM1_USART_Initialize();
+
     EVSYS_Initialize();
+
+    SERCOM0_I2C_Initialize();
 
 
     NVIC_Initialize();

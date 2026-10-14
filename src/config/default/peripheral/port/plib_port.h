@@ -65,6 +65,22 @@
 // *****************************************************************************
 // *****************************************************************************
 
+/*** Macros for TX pin ***/
+#define TX_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 0U)) & 0x01U)
+#define TX_PIN                  PORT_PIN_PA00
+
+/*** Macros for RX pin ***/
+#define RX_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 1U)) & 0x01U)
+#define RX_PIN                  PORT_PIN_PA01
+
+/*** Macros for SDA pin ***/
+#define SDA_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 8U)) & 0x01U)
+#define SDA_PIN                  PORT_PIN_PA08
+
+/*** Macros for SCL pin ***/
+#define SCL_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 9U)) & 0x01U)
+#define SCL_PIN                  PORT_PIN_PA09
+
 // *****************************************************************************
 /* PORT Group
 
@@ -263,6 +279,40 @@ typedef enum
 // Section: Generated API based on pin configurations done in Pin Manager
 // *****************************************************************************
 // *****************************************************************************
+// *****************************************************************************
+/* Function:
+    void PORT_Initialize(void)
+
+  Summary:
+    Initializes the PORT Library.
+
+  Description:
+    This function initializes all ports and pins as configured in the
+    MHC Pin Manager.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+
+    PORT_Initialize();
+
+    </code>
+
+  Remarks:
+    The function should be called once before calling any other PORTS PLIB
+    functions.
+*/
+
+void PORT_Initialize(void);
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: PORT APIs which operates on multiple pins of a group
